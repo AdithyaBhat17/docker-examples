@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 let tasks = [
   {
     id: 1,
-    completed: false,
+    completed: true,
     task: "Learn docker",
   },
   {
@@ -29,9 +29,35 @@ app.get("/", (_, res) => {
 
 app.post("/", (req, res) => {
   let { task } = req.body;
-  let id = tasks.length;
-  tasks.unshift({ id, completed: false, task });
-  res.json(tasks);
+  let id = tasks.length + 1;
+  tasks.push({ id, completed: false, task });
+  res.json(tasks[id - 1]);
 });
 
-app.listen(8080, () => console.log("listening on port 8080"));
+app.put("/:id", (req, res) => {
+  let {id} = req.params;
+  let {task, completed} = req.body;
+  let index = tasks.findIndex(t => t.id === parseInt(id, 10));
+  if(index !== -1) {
+    if(task) {
+      tasks[index].task = task;
+    }
+    if(completed !== undefined && typeof(completed) === 'boolean') {
+      tasks[index].completed = completed;
+    }
+    return res.json(tasks[index]);
+  }
+  return res.status(400).json({message: 'failed to update task'})
+});
+
+app.delete("/:id", (req, res) => {
+  let {id} = req.params;
+  let index = tasks.findIndex(t => t.id === parseInt(id, 10));
+  if(index !== -1) {
+    let removedTask = tasks.splice(index, 1);
+    return res.json({id: removedTask[0].id})
+  }
+  return res.status(400).json({message: 'failed to delete task'})
+})
+
+app.listen(8081, () => console.log("listening on port 8080"));
