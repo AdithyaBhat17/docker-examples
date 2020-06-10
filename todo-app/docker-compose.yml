@@ -8,9 +8,8 @@ services:
     image: todo_app:v1
     container_name: server
     #env_file: .env
-    command: "yarn start"
     volumes:
-      - ./src:/app/
+      - ./src:/app/src
     restart: always
     ports:
       - "80:8080"

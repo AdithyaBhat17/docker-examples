@@ -57,7 +57,7 @@ app.delete("/:id", (req, res) => {
     let removedTask = tasks.splice(index, 1);
     return res.json({id: removedTask[0].id})
   }
-  return res.status(400).json({message: 'failed to delete task'})
+  return res.status(400).json({message: 'Task not found'})
 })
 
-app.listen(8081, () => console.log("listening on port 8080"));
+app.listen(8080, () => console.log("listening on port 8080"));
