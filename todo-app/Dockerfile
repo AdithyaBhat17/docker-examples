@@ -2,10 +2,10 @@ FROM node:13-alpine3.10
 
 WORKDIR /app/
 
-COPY . ./app
+COPY . .
 
-RUN cd app/src/ && yarn
+RUN ls && yarn
 
 EXPOSE 8080
 
-CMD ["node", "app/src/index.js"]
+CMD ["yarn", "start"]
