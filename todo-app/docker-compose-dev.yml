@@ -23,7 +23,7 @@ services:
     volumes:
       - ./client:/app/client
     restart: always
-    command: sh -c "yarn && yarn build && yarn start"
+    command: sh -c "yarn && yarn dev"
     ports:
       - "3000:3000"
     networks:
