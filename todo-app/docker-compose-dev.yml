@@ -9,7 +9,7 @@ services:
     #env_file: .env
     volumes:
       - ./server:/app/server
-    restart: always
+    restart: unless-stopped	
     command: sh -c "yarn && yarn start"
     ports:
       - "8080:8080"
@@ -22,7 +22,7 @@ services:
     container_name: client
     volumes:
       - ./client:/app/client
-    restart: always
+    restart: unless-stopped	
     command: sh -c "yarn && yarn dev"
     ports:
       - "3000:3000"
